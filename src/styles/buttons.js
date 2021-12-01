@@ -9,7 +9,7 @@ const styledButton = StyleSheet.create({
         height: 55,
         textAlign: 'center',
         fontSize: 25,
-        elevation: 5,
+        // elevation: 5,
     },
 
     
@@ -33,7 +33,7 @@ const styledButton = StyleSheet.create({
         height: 55,
         borderRadius: 25,
         marginTop: 10,
-        elevation: 5,
+        // elevation: 5,
     },
     subtext: {
         fontSize: 15, 

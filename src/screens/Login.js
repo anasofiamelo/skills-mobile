@@ -22,7 +22,7 @@ export default function Login({navigation}) {
     const [password, setPassword] = useState(null)
 
     const login = () => {
-        console.log('entrou')
+        console.log('clicou em login')
         console.log(user)
         console.log(password)
         navigation.navigate('Principal')
@@ -30,6 +30,10 @@ export default function Login({navigation}) {
         //     index: 0,
         //     routes: [{name: 'Principal'}]
         // })
+    }
+    const register = () => {
+        console.log('clicou em register')
+        navigation.navigate('Register')
     }
 
     return <View style={styledButton.container}>
@@ -56,7 +60,7 @@ export default function Login({navigation}) {
         </View>
         
         <View style={styledButton.inputContainer}>
-            <TouchableOpacity> 
+            <TouchableOpacity onPress={() => register()}> 
                 <Text style={styledButton.subtext}>Not a User? Register </Text> 
             </TouchableOpacity>
         </View>
