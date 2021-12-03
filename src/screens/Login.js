@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage"
 // imports do react-native
 import { 
     StatusBar, 
@@ -6,87 +7,94 @@ import {
     TextInput,
     TouchableOpacity,
     View,
-    Button
+    Text
 } from 'react-native'
-// imports do react-native-elements
-import { 
-    Input, 
-    Text 
-} from 'react-native-elements'
+// service imports
+import userService from '../services/UserService'
 // style imports
-import styledButton from '../styles/buttons'
+import buttons from '../styles/buttons'
+import containers from '../styles/containers'
+import titles from '../styles/titles'
 
 export default function Login({navigation}) {
 
     const [user, setUser] = useState(null)
     const [password, setPassword] = useState(null)
+    const [isLoading, setLoading] = useState(false)
+    const [isLoadingToken, setLoadingToken] = useState(true)
 
-    const login = () => {
-        console.log('clicou em login')
-        console.log(user)
-        console.log(password)
-        navigation.navigate('Principal')
+    async function login() {
+        let token = AsyncStorage.getItem("TOKEN")
+        let data = 
+            {
+                user: user,
+                senha: password
+            }
+
+        userService.login(data)
+            .then( (response) => {
+                if(!token){
+                    return console.log(response.status)
+                }else {
+                    navigation.navigate('Principal')
+                }
+            }
+                )
+            .catch(error => {
+                console.log(error.message)
+            })
         // navigation.reset({
         //     index: 0,
         //     routes: [{name: 'Principal'}]
         // })
     }
+
+    //navegar p/ tela de registro
     const register = () => {
         console.log('clicou em register')
         navigation.navigate('Register')
     }
 
-    return <View style={styledButton.container}>
-        <SafeAreaView style={styledButton.container}>
+
+    return <View style={containers.container}>
+        <SafeAreaView style={containers.container}>
         <StatusBar/>
 
         <View> 
-            <Text h2> SIGN IN </Text>
+            <Text style={titles.title}> SIGN IN </Text>
         </View>
 
-        <View style={styledButton.inputContainer}> 
-            <Input
+        <View style={containers.inputContainer}> 
+            <TextInput
                 placeholder="example"
-                leftIcon={{ type: 'font-awesome', name: 'envelope'}}
                 onChangeText={value => setUser( value )}
-                style={styledButton.input}/>
+                style={buttons.input}/>
 
-            <Input
+            <TextInput
                 placeholder="*****"
-                leftIcon={{ type: 'font-awesome', name: 'lock'}}
                 onChangeText={value => setPassword( value )}
                 secureTextEntry={true}
-                style={styledButton.input}/>
+                style={buttons.input}/>
         </View>
         
-        <View style={styledButton.inputContainer}>
+        <View style={containers.subtitleContainer}>
+                <Text style={titles.textBlack}> Not a user? </Text>
             <TouchableOpacity onPress={() => register()}> 
-                <Text style={styledButton.subtext}>Not a User? Register </Text> 
+                <Text style={titles.text}> Register </Text> 
             </TouchableOpacity>
         </View>
 
-        <View>
-            <Button
-                style={styledButton.button}
-                title="LOGIN"
-                onPress={() => login()}
-            />
+        <View style={buttons.buttonContainer}>
+            <TouchableOpacity
+                style={buttons.button}
+                onPress={() => login()}>
+                    <Text style={buttons.buttonText}> LOGIN </Text>
+            </TouchableOpacity>
         </View>
 
-        <Text style={styledButton.subtext}> Forgot your password? </Text>
+        <Text style={titles.text}> Forgot your password? </Text>
 
     </SafeAreaView> 
     </View>
 }
 
-
-
-
-
-// fazer um component p/ item passando os parametros do array
-/* <FlatList
-    data ={servicos}
-    renderItem = {({item})} => {
-        return <Text> {item.item.nome} </Text>
-    }
-/> */

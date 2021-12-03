@@ -6,15 +6,14 @@ import {
     TextInput,
     TouchableOpacity,
     View,
-    Button
+    Text,
 } from 'react-native'
-// imports do react-native-elements
-import { 
-    Input, 
-    Text 
-} from 'react-native-elements'
+// service imports
+import userService from '../services/UserService'
 // style imports
-import styledButton from '../styles/buttons'
+import buttons from '../styles/buttons'
+import containers from '../styles/containers'
+import titles from '../styles/titles'
 
 export default function Register({navigation}) {
 
@@ -24,35 +23,35 @@ export default function Register({navigation}) {
     const [senha, setSenha] = useState(null)
     const [email, setEmail] = useState(null)
 
-    // useEffect( () => {
-    //     fetch('http://localhost:3000/lista', {
-    //         method: 'GET',
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         }
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => console.log(data))
-    // }, [])
-    
     //envia os dados do usuário p/ cadastrar no backend
     async function registerUser() {
-            fetch('http://localhost:3000/create-user', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    user: user,
-                    nome: name,
-                    senha: senha,
-                    email: email
-                })
-            })
-            .then( response => response.json )
-            .then( console.log('Usuário cadastrado'))
+        const data = 
+            {
+                user: user,
+                nome: name,
+                senha: senha,
+                email: email
+            }
+
+        userService.register(data)
+            .then(response => console.log(response.data))
+            .catch(error => console.log(error))
+
+            // fetch('http://192.168.0.100:3000/create-user', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Accept': 'application/json',
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify({
+            //         user: user,
+            //         nome: name,
+            //         senha: senha,
+            //         email: email
+            //     })
+            // })
+            // .then( response => response.json )
+            // .then( console.log('Usuário cadastrado'))
     }
     
     //volta p/ página de login
@@ -60,53 +59,61 @@ export default function Register({navigation}) {
         navigation.navigate('Login')
     }
 
-    return <View style={styledButton.container}>
-        <SafeAreaView style={styledButton.container}>
+    return <View style={containers.container}>
+        <SafeAreaView style={containers.container}>
         <StatusBar/>
 
         <View> 
-            <Text h2> REGISTER </Text>
+            <Text style={titles.title}> REGISTER </Text>
         </View>
 
-        <View style={styledButton.inputContainer}> 
-            <Input
+        <View style={containers.inputContainer}> 
+
+            <TextInput
+                style={buttons.input}
                 placeholder="user"
                 leftIcon={{ type: 'font-awesome', name: 'user'}}
-                style={styledButton.input}
                 onChangeText={(text) => setUser(text)}/>
-            <Input
+
+            <TextInput
+                style={buttons.input}
                 placeholder="name"
                 leftIcon={{ type: 'font-awesome', name: 'circle'}}
-                style={styledButton.input}
                 onChangeText={(text) => setName(text)}/>
-            <Input
+
+            <TextInput
+                style={buttons.input}
                 placeholder="*****"
                 leftIcon={{ type: 'font-awesome', name: 'lock'}}
                 secureTextEntry={true}
-                style={styledButton.input}
                 onChangeText={(text) => setSenha(text)}/>
-            <Input
+
+            <TextInput
+                style={buttons.input}
                 placeholder="email"
                 leftIcon={{ type: 'font-awesome', name: 'envelope'}}
-                style={styledButton.input}
                 onChangeText={(text) => setEmail(text)}/>
+
         </View>
         
-        <View style={styledButton.inputContainer}>
-            <TouchableOpacity onPress={() => login()}> 
-                <Text style={styledButton.subtext}> Already a user? Sign in </Text> 
+        <View style={containers.subtitleContainer}>
+
+            <Text style={titles.textBlack}> Already a user? </Text>
+
+            <TouchableOpacity 
+                onPress={() => login()}> 
+                    <Text style={titles.text}> Sign in </Text> 
             </TouchableOpacity>
+
         </View>
 
         <View>
-            <Button
-                style={styledButton.button}
-                title="Register"
-                onPress={() => registerUser()}
-            />
+            <TouchableOpacity
+                style={buttons.button}
+                onPress={() => registerUser()}> 
+                    <Text style={buttons.buttonText}> REGISTER </Text>
+            </TouchableOpacity>
         </View>
-
-        <Text style={styledButton.subtext}> Forgot your password? </Text>
 
     </SafeAreaView> 
     </View>
