@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage"
-// imports do react-native
+//react-native imports
 import { 
     StatusBar, 
     SafeAreaView, 
@@ -20,8 +20,6 @@ export default function Login({navigation}) {
 
     const [user, setUser] = useState(null)
     const [password, setPassword] = useState(null)
-    const [isLoading, setLoading] = useState(false)
-    const [isLoadingToken, setLoadingToken] = useState(true)
 
     async function login() {
         let token = AsyncStorage.getItem("TOKEN")
@@ -35,7 +33,7 @@ export default function Login({navigation}) {
             .then( (response) => {
                 if(!token){
                     return console.log(response.status)
-                }else {
+                } else {
                     navigation.navigate('Principal')
                 }
             }
@@ -60,8 +58,10 @@ export default function Login({navigation}) {
         <SafeAreaView style={containers.container}>
         <StatusBar/>
 
-        <View> 
+        <View style={containers.loginTitleContainer}> 
             <Text style={titles.title}> SIGN IN </Text>
+            <Text style={titles.subtext}>create your profile and share</Text>
+            <Text style={titles.subtext}> your programming skills </Text>
         </View>
 
         <View style={containers.inputContainer}> 

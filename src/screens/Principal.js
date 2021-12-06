@@ -1,17 +1,16 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
+//tabscreens
 import Home from './tab-screens/Home'
 import Users from './tab-screens/Users'
 import Statistics from './tab-screens/Statistics'
-
 
 const Tab = createBottomTabNavigator()
 
 function MyTabs(){
     return ( 
+        <>
         <Tab.Navigator>
 
             {/* aba do usuário */}
@@ -24,14 +23,14 @@ function MyTabs(){
                         <MaterialCommunityIcons name="account-box" color={color} size={size}/>)}}>
             </Tab.Screen>
 
-            <Tab.Screen 
+            {/* <Tab.Screen 
                 name="Users" 
                 component={Users}
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="account-multiple" color={color} size={size}/>)}}>
-            </Tab.Screen>
+            </Tab.Screen> */}
 
             <Tab.Screen 
                 name="Statistics" 
@@ -43,6 +42,7 @@ function MyTabs(){
             </Tab.Screen>
 
         </Tab.Navigator>
+        </>
     )
 }
 

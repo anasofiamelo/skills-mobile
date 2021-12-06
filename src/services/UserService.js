@@ -1,9 +1,10 @@
+
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import axios from "axios"
 import config from "../util/config"
 
+
 class UserService {
-    
     async register(data) {
         return axios({
             url: config.API_URL + "create-user",
@@ -25,12 +26,12 @@ class UserService {
             timeout: config.TIMEOUT_REQUEST,
             data: data,
             headers: config.HEADER_REQUEST
-        }).then((response) => {
+        }).then(async (response) => {
             if(!response.data.user.accessToken){
                 return Promise.reject(response)
             } else {
-                AsyncStorage.setItem("TOKEN", response.data.user.accessToken)
-                // console.log(response.data.user.accessToken)
+                await AsyncStorage.setItem("TOKEN", response.data.user.accessToken)
+                await AsyncStorage.setItem("ID", response.data.user.id.toString())
                 return Promise.resolve(response)
             }
             

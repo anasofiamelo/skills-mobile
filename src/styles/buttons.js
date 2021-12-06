@@ -17,8 +17,21 @@ const buttons = StyleSheet.create({
         textAlign: 'center',
         marginTop: 10
     },
+    miniButton: {
+        width: 126,
+        height: 30,
+        borderRadius: 25, 
+        backgroundColor: colors.background,
+        elevation: 5,
+    },
+    miniButtonText: {
+        color: colors.primary,
+        fontFamily: 'MontserratMedium',
+        fontSize: 18,
+        textAlign: 'center'
+    },
     input: {
-        backgroundColor: '#ebf5fc',
+        backgroundColor: colors.background,
         width: 330,
         height: 55,
         borderRadius: 25,
