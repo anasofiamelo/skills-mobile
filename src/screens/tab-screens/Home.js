@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 //react native
 import { Text, View, TouchableOpacity } from 'react-native'
-
-//async storage
-import AsyncStorage from "@react-native-async-storage/async-storage"
-import axios from "axios"
-import config from "../../util/config"
-
+//contexts
+import { useAuth } from '../../contexts/auth'
+import SkillsContext from '../../contexts/skills'
 //styles
 import titles from '../../styles/titles'
 import containers from '../../styles/containers'
@@ -15,36 +12,10 @@ import buttons from '../../styles/buttons'
 
 
 export default function Home({navigation}) {
-
-    const [user, setUser] = useState({})
-
-    async function buscaUser(){
-        try {
-            const id = await AsyncStorage.getItem("ID")
-            console.log(id)
-            axios({
-                url: config.API_URL + "users/" + id,
-                method: "GET",
-                timeout: config.TIMEOUT_REQUEST,
-                headers: config.HEADER_REQUEST
-            }).then((response) => {
-                if(!response){
-                    return Promise.reject(error)
-                } else {
-                    return setUser(response.data)
-                }
-            }).catch((error) => {
-                return Promise.reject(error)
-            })
-        } catch(err) {
-            console.log(err)
-        }
-        
-    }
-
-    useEffect(() => {
-        buscaUser()
-    }, [])
+    const context = useContext(SkillsContext)
+    context.getSkills()
+    
+    const { user } = useAuth();
 
 
     const search = () => {
@@ -64,7 +35,7 @@ export default function Home({navigation}) {
         <View style={containers.background}>
             
             <View>
-                <Text style={titles.title}> Hello, {user.nome}</Text>
+                <Text style={titles.title}> Hello, { user.nome } </Text>
 
                 <View>
                     <Text style={titles.subtitle}> SKILLS (2) </Text>

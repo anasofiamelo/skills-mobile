@@ -8,8 +8,6 @@ import {
     View,
     Text,
 } from 'react-native'
-// service imports
-import userService from '../services/UserService'
 // style imports
 import buttons from '../styles/buttons'
 import containers from '../styles/containers'
@@ -25,33 +23,6 @@ export default function Register({navigation}) {
 
     //envia os dados do usuário p/ cadastrar no backend
     async function registerUser() {
-        const data = 
-            {
-                user: user,
-                nome: name,
-                senha: senha,
-                email: email
-            }
-
-        userService.register(data)
-            .then(response => console.log(response.data))
-            .catch(error => console.log(error))
-
-            // fetch('http://192.168.0.100:3000/create-user', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Accept': 'application/json',
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify({
-            //         user: user,
-            //         nome: name,
-            //         senha: senha,
-            //         email: email
-            //     })
-            // })
-            // .then( response => response.json )
-            // .then( console.log('Usuário cadastrado'))
     }
     
     //volta p/ página de login

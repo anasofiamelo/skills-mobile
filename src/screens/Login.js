@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import AsyncStorage from "@react-native-async-storage/async-storage"
+import React, { useState } from 'react';
 //react-native imports
 import { 
     StatusBar, 
@@ -7,59 +6,38 @@ import {
     TextInput,
     TouchableOpacity,
     View,
-    Text
+    Text,
+    Button
 } from 'react-native'
-// service imports
-import userService from '../services/UserService'
+// contexts
+import { useAuth } from '../contexts/auth'
 // style imports
 import buttons from '../styles/buttons'
 import containers from '../styles/containers'
 import titles from '../styles/titles'
 
 export default function Login({navigation}) {
-
+    
     const [user, setUser] = useState(null)
     const [password, setPassword] = useState(null)
+    const context = useAuth()
 
-    async function login() {
-        let token = AsyncStorage.getItem("TOKEN")
-        let data = 
-            {
-                user: user,
-                senha: password
-            }
-
-        userService.login(data)
-            .then( (response) => {
-                if(!token){
-                    return console.log(response.status)
-                } else {
-                    navigation.navigate('Principal')
-                }
-            }
-                )
-            .catch(error => {
-                console.log(error.message)
-            })
-        // navigation.reset({
-        //     index: 0,
-        //     routes: [{name: 'Principal'}]
-        // })
+    function handleLogin(){
+        context.Login(user, password)
     }
-
     //navegar p/ tela de registro
     const register = () => {
         console.log('clicou em register')
         navigation.navigate('Register')
     }
-
-
-    return <View style={containers.container}>
+    
+    return (
+        <View style={containers.container}>
         <SafeAreaView style={containers.container}>
         <StatusBar/>
 
         <View style={containers.loginTitleContainer}> 
-            <Text style={titles.title}> SIGN IN </Text>
+            <Text style={titles.title}> SIGN IN</Text>
             <Text style={titles.subtext}>create your profile and share</Text>
             <Text style={titles.subtext}> your programming skills </Text>
         </View>
@@ -87,7 +65,7 @@ export default function Login({navigation}) {
         <View style={buttons.buttonContainer}>
             <TouchableOpacity
                 style={buttons.button}
-                onPress={() => login()}>
+                onPress={() => handleLogin()}>
                     <Text style={buttons.buttonText}> LOGIN </Text>
             </TouchableOpacity>
         </View>
@@ -96,5 +74,6 @@ export default function Login({navigation}) {
 
     </SafeAreaView> 
     </View>
+)
 }
 

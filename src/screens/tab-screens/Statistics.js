@@ -4,11 +4,13 @@ import { View, Text, TouchableOpacity } from 'react-native'
 //styles
 import containers from '../../styles/containers'
 import titles from '../../styles/titles'
-//components
+//contexts
+import { useAuth } from '../../contexts/auth'
 
 export default function Statistics({navigation}){
-    const logout = (navigation) => {
-        navigation.navigate('Login')
+    const context = useAuth()
+    const logout = () => {
+        context.Logout()
         console.log('clicou em logout')
     }
 
