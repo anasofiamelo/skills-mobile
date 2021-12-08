@@ -6,8 +6,8 @@ const containers = StyleSheet.create({
     //page containers
     background: {
         backgroundColor: colors.background,
-        padding: 10,
-        height: '100%'
+        height: '100%',
+        paddingLeft: 30
     },
     container: {
         flex: 1,
@@ -33,24 +33,15 @@ const containers = StyleSheet.create({
     },
     //card container
     cardContainer: {
+
     },
-    cardFeedContainer: {
-        alignItems: 'center',
-        marginBottom: 30,
-        backgroundColor: colors.background,
-        elevation: 5,
-        borderRadius: 25,
-        padding: 20
+    feedContainer: {
+        flexDirection: 'row'
     },
     //acitivies container
-    activitiesContainer: {
-        width: 28, 
-        height: 313,
-        elevation: 5,
-        backgroundColor: colors.background,
-        borderRadius: 25,
-        justifyContent: 'flex-end',
-        alignItems: 'center'
+    feedDivisionContainer: {
+        flexDirection: 'column',
+        justifyContent: 'space-between',
     },
     activities: {
         width: 20, 

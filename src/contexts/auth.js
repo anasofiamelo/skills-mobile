@@ -15,7 +15,9 @@ export const AuthProvider = ({ children }) => {
     }, [])
 
     async function loadUser(){
-        return user
+        const userString = await AsyncStorage.getItem('AUTH:user')
+        const userJSON = JSON.parse(userString)
+        return userJSON
     }
     //json parse
     async function Login(user, senha){
