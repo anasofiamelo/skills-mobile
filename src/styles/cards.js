@@ -27,8 +27,26 @@ const cards = StyleSheet.create({
         elevation: 5,
         borderRadius: 25,
         width: 127,
-        height: 387
+        height: 375
     },
+    cardUser: {
+        width: '100%',
+        height: 100,
+        backgroundColor: colors.background,
+        elevation: 3,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 20
+    },
+    activities: {
+        backgroundColor: colors.background,
+        height: 300,
+        borderRadius: 25,
+        elevation: 5,
+        padding: 4,
+        justifyContent: 'flex-end',
+    }
 })
 
 export default cards;

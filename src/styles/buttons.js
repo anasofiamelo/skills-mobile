@@ -8,7 +8,7 @@ const buttons = StyleSheet.create({
         height: 55,
         borderRadius: 25,
         backgroundColor: colors.background,
-        elevation: 5,
+        elevation: 3,
     },
     buttonText: {
         color: colors.primary,
@@ -22,7 +22,8 @@ const buttons = StyleSheet.create({
         height: 30,
         borderRadius: 25, 
         backgroundColor: colors.background,
-        elevation: 5,
+        elevation: 3,
+        marginTop: 20
     },
     miniButtonText: {
         color: colors.primary,
@@ -36,8 +37,9 @@ const buttons = StyleSheet.create({
         height: 55,
         borderRadius: 25,
         marginTop: 10,
-        elevation: 5,
-        paddingLeft: 20
+        marginLeft: 5,
+        elevation: 3,
+        paddingLeft: 20,
     },
 })
 

@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
     async function loadUser(){
         const userString = await AsyncStorage.getItem('AUTH:user')
         const userJSON = JSON.parse(userString)
-        return userJSON
+        setUser(userJSON)
     }
     //json parse
     async function Login(user, senha){
@@ -27,14 +27,13 @@ export const AuthProvider = ({ children }) => {
         })
         setUser(response.data.user)
         setToken(response.data.user.accessToken)
-        console.log(response.data.user)
         await AsyncStorage.setItem('AUTH:user', JSON.stringify(response.data.user))
         await AsyncStorage.setItem('AUTH:token', response.data.user.accessToken)
     }
 
     function Logout(){
-        AsyncStorage.clear()
         setUser(null);
+        AsyncStorage.clear()
     }
 
     return (

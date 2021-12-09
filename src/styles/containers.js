@@ -7,7 +7,8 @@ const containers = StyleSheet.create({
     background: {
         backgroundColor: colors.background,
         height: '100%',
-        paddingLeft: 30
+        paddingLeft: '6%',
+        paddingTop: 20
     },
     container: {
         flex: 1,
@@ -15,6 +16,10 @@ const containers = StyleSheet.create({
         justifyContent: 'space-evenly',
         backgroundColor: colors.background,
         height: '100%',
+    },
+    sectionContainer: {
+        marginTop: 10,
+        width: '92%'
     },
     //login container
     loginTitleContainer: {
@@ -36,7 +41,8 @@ const containers = StyleSheet.create({
 
     },
     feedContainer: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     //acitivies container
     feedDivisionContainer: {
@@ -48,6 +54,23 @@ const containers = StyleSheet.create({
         height: 189, 
         borderRadius: 25,
         backgroundColor: colors.primary,
+    },
+    //skills container
+    skillContainer: {
+        marginLeft: 5,
+        padding: 5,
+        marginBottom: 10
+    },
+    skillsContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    flatlistContainer: {
+        // width: '90%'
+    },
+    subtextContainer: {
+        margin: 10
     },
     //footer container
     footerContainer: {

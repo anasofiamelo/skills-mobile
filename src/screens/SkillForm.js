@@ -22,6 +22,7 @@ export default function SkillForm(){
         })
         .catch(error => console.log(error))
     }
+    
     return (
         <View style={containers.background}>
 

@@ -4,15 +4,14 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 //tabscreens
 import Home from './tab-screens/Home'
 import Statistics from './tab-screens/Statistics'
-
+//styles
+import containers from '../styles/containers'
 const Tab = createBottomTabNavigator()
 
 function MyTabs(){
     return ( 
         <>
         <Tab.Navigator>
-
-            {/* aba do usuário */}
             <Tab.Screen 
                 name="Home" 
                 component={Home}

@@ -12,6 +12,8 @@ const titles = StyleSheet.create({
         fontFamily: 'MontserratRegular',
         fontSize: 20,
         color: colors.primary,
+        marginBottom: 10,
+        marginLeft: 5
     },
     subtitleFeed: {
         fontFamily: 'PoppinsRegular',
@@ -32,6 +34,21 @@ const titles = StyleSheet.create({
         fontFamily: 'MontserratRegular',
         fontSize: 15, 
         color: colors.textLight,
+        marginLeft: 7
+    },
+    subtextCenter: {
+        fontFamily: 'MontserratRegular',
+        fontSize: 15, 
+        color: colors.textLight,
+        textAlign: 'center',
+    },
+    skillText: {
+        fontSize: 18,
+    },
+    skillLevelText: {
+        fontSize: 15,
+        textTransform: 'uppercase',
+        color: colors.primary
     },
     footerText: {
         fontFamily: 'MontserratRegular',

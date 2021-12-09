@@ -5,6 +5,7 @@ import axios from 'axios'
 import { Text, View, TouchableOpacity, FlatList } from 'react-native'
 //contexts
 import { useAuth } from '../../contexts/auth'
+import { useUserSkills } from '../../contexts/userskills'
 //styles
 import titles from '../../styles/titles'
 import containers from '../../styles/containers'
@@ -14,20 +15,11 @@ import cards from '../../styles/cards'
 
 export default function Home({navigation}) {
     const { user } = useAuth();
+    const { userSkills } = useUserSkills();
 
-    const [userSkills, setUserSkills] = useState([])
-    
     useEffect(() => {
-        getUserSkills()
+        console.log(userSkills)
     }, [])
-
-    const getUserSkills = () => {
-        axios.get(`http://192.168.0.101:3000/users/${user.id}/habilidades`)
-        .then(response => {
-            setUserSkills(response.data)
-        })
-        .catch(error => console.log(error))
-    }
 
     const search = () => {
         console.log('clicou em search')
@@ -48,31 +40,38 @@ export default function Home({navigation}) {
             <View>
                 <Text style={titles.title}> Hello, { user.nome } </Text>
 
-                <View>
-                    <Text style={titles.subtitle}> SKILLS (2) </Text>
+                <View style={containers.sectionContainer}>
+                    <Text style={titles.subtitle}> SKILLS ({userSkills.length}) </Text>
 
-                    <FlatList 
-                        keyExtractor={(item) => item.id_action}
-                        data={userSkills}
-                        renderItem={({item}) => (
-                            <Text>{item.habilidade}</Text>
-                        )}
-                    />
+                <FlatList style={containers.flatlistContainer}
+                    horizontal={true}
+                    keyExtractor={(item) => item.id_action}
+                    data={userSkills}
+                    renderItem={({item}) => (
+                        <View style={containers.skillContainer}>
+                            <Text style={titles.skillText}>{item.habilidade}</Text>
+                            <Text style={titles.skillLevelText}>{item.nivel}</Text>
+                        </View>
+                    )}
+                />
 
-                    <TouchableOpacity 
+                    
+
+                    {/* <TouchableOpacity 
                         style={buttons.miniButton}
                         onPress={() => skillForm()}> 
                         <Text style={buttons.miniButtonText}> add skill </Text>
                     </TouchableOpacity>
+                     */}
                 </View>
                 
-                <View>
-                    <Text style={titles.subtext}> sign more skills and give your</Text>
-                    <Text style={titles.subtext}>  profile more contrast! </Text>
+                <View style={containers.subtextContainer}>
+                    <Text style={titles.subtextCenter}> sign more skills and give your</Text>
+                    <Text style={titles.subtextCenter}>  profile more contrast! </Text>
                 </View>
                 
 
-                <View>
+                <View style={containers.sectionContainer}>
                     <Text style={titles.subtitle}> FEED </Text>
 
                     <View style={containers.feedContainer}> 
@@ -105,7 +104,10 @@ export default function Home({navigation}) {
 
                         <View style={cards.cardActivities}>
                             <Text style={titles.subtitleFeed}>ACTIVITIES</Text>
+                            <View style={cards.activities}>
                                 <View style={containers.activities}></View>
+                            </View>
+                                
                         </View>
 
 

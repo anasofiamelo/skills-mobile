@@ -8,8 +8,8 @@ const AuthStack = createStackNavigator();
 
 const AuthRoutes = () => (
   <AuthStack.Navigator>
-    <AuthStack.Screen name="Login" component={Login} />
-    <AuthStack.Screen name="Register" component={Register} />
+    <AuthStack.Screen options={{headerShown: false}} name="Login" component={Login} />
+    <AuthStack.Screen options={{headerShown: false}} name="Register" component={Register} />
   </AuthStack.Navigator>
 );
 
