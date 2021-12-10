@@ -8,13 +8,15 @@ import {
     View,
     Text,
 } from 'react-native'
+//contexts
+import { useAuth } from '../contexts/auth'
 // style imports
 import buttons from '../styles/buttons'
 import containers from '../styles/containers'
 import titles from '../styles/titles'
 
 export default function Register({navigation}) {
-
+    const context = useAuth()
     //states
     const [user, setUser] = useState(null)
     const [name, setName] = useState(null)
@@ -22,7 +24,15 @@ export default function Register({navigation}) {
     const [email, setEmail] = useState(null)
 
     //envia os dados do usuário p/ cadastrar no backend
-    async function registerUser() {
+    function handleRegister() {
+        if(senha.length < 8){
+            alert('password must have at least 8 characters', [
+                {text: 'ok'}
+            ])
+        } else {
+            context.Register(user, senha, name, email)
+            navigation.navigate('Login')
+        }
     }
     
     //volta p/ página de login
@@ -81,7 +91,7 @@ export default function Register({navigation}) {
         <View>
             <TouchableOpacity
                 style={buttons.button}
-                onPress={() => registerUser()}> 
+                onPress={() => handleRegister()}> 
                     <Text style={buttons.buttonText}> REGISTER </Text>
             </TouchableOpacity>
         </View>

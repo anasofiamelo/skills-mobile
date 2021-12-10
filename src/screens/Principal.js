@@ -1,12 +1,17 @@
-import * as React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import React, { useEffect, useState } from 'react';
+//react native
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 //tabscreens
-import Home from './tab-screens/Home'
-import Statistics from './tab-screens/Statistics'
+import Home from './Home'
+import SearchDev from './SearchDev';
+import SkillForm from './SkillForm';
+import YourSkills from './YourSkills';
+import UserProfile from './UserProfile';
 //styles
 import containers from '../styles/containers'
-const Tab = createBottomTabNavigator()
+const Tab = createDrawerNavigator()
 
 function MyTabs(){
     return ( 
@@ -22,8 +27,24 @@ function MyTabs(){
             </Tab.Screen>
 
             <Tab.Screen 
-                name="Statistics" 
-                component={Statistics}
+                name="Your Skills" 
+                component={YourSkills}
+                options={{
+                    headerShown: false,
+                    tabBarIcon: ({ color, size }) => (
+                        <MaterialCommunityIcons name="poll" color={color} size={size}/>)}}>
+            </Tab.Screen>
+            <Tab.Screen 
+                name="Search Devs" 
+                component={SearchDev}
+                options={{
+                    headerShown: false,
+                    tabBarIcon: ({ color, size }) => (
+                        <MaterialCommunityIcons name="poll" color={color} size={size}/>)}}>
+            </Tab.Screen>
+            <Tab.Screen 
+                name="Add Skills" 
+                component={SkillForm}
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ color, size }) => (

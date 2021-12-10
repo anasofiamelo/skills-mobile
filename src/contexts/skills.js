@@ -1,14 +1,10 @@
 import React, { createContext, useState, useEffect, useContext } from 'react'
 //API
 import API from '../services/API'
-//Async Storage
-import AsyncStorage from "@react-native-async-storage/async-storage"
-//auth context
-// import { useAuth } from './auth'
 
 const SkillsContext = createContext({})
-export const SkillsProvider = () => {
-    // const { user } = useAuth();
+export const SkillsProvider = ({children}) => {
+
     const [skills, setSkills] = useState([])
 
     useEffect(() => {
@@ -23,7 +19,7 @@ export const SkillsProvider = () => {
 
     return (
         <SkillsContext.Provider value={{}}>
-            {  }
+            { children }
         </SkillsContext.Provider>
     )
 }

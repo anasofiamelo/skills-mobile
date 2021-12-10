@@ -4,13 +4,13 @@ import axios from 'axios'
 //react native
 import { Text, View, TextInput, FlatList, TouchableOpacity } from 'react-native'
 //styles
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import containers from '../styles/containers';
 import titles from '../styles/titles';
 import buttons from '../styles/buttons';
 import cards from '../styles/cards';
 import colors from '../../assets/colors/colors'
-//contexts
+//components
+import CardUser from '../components/CardUser'
 import { useUsers } from '../contexts/users'
 
 export default function SearchDev({navigation}){
@@ -33,16 +33,7 @@ export default function SearchDev({navigation}){
                     keyExtractor={(item) => item.id}
                     data={users}
                     renderItem={({item}) => (
-                            <TouchableOpacity onPress={()=> {
-                                const userId = item.id
-                                console.log(item.id)
-                                navigation.navigate('UserProfile', {id: item.id})
-                                }}>
-                                <View style={cards.cardUser}> 
-                                    <Text style={titles.subtitle}>{item.nome}</Text>
-                                    <Text style={titles.subtext}>{item.email}</Text>
-                                </View>
-                            </TouchableOpacity>
+                            <CardUser {...item} /> 
                     )}
                 />
             </View>

@@ -9,6 +9,7 @@ const AuthContext = createContext({})
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState({})
     const [token, setToken] = useState('')
+    const [userSkills, setUserSkills] = useState([])
 
     useEffect(() => {
         loadUser()
@@ -25,10 +26,39 @@ export const AuthProvider = ({ children }) => {
             user: user,
             senha: senha
         })
-        setUser(response.data.user)
-        setToken(response.data.user.accessToken)
-        await AsyncStorage.setItem('AUTH:user', JSON.stringify(response.data.user))
-        await AsyncStorage.setItem('AUTH:token', response.data.user.accessToken)
+        console.log(response.status)
+        if(response.status == undefined){
+            alert('Invalid user or password', [
+                {text: 'ok'}
+            ])
+        } else {
+            loadUserSkills(response.data.user.id)
+            setUser(response.data.user)
+            setToken(response.data.user.accessToken)
+            await AsyncStorage.setItem('AUTH:user', JSON.stringify(response.data.user))
+            await AsyncStorage.setItem('AUTH:token', response.data.user.accessToken)
+        }
+        
+    }
+    async function Register(user, senha, name, email){
+        const response = await API.post('/create-user', {
+            user: user,
+            nome: name,
+            email: email,
+            senha: senha
+        })
+        if(response.status == 200){
+            alert('Successfully registered', [
+                {text: 'ok', onPress: () => console.log('alert closed')}
+            ])
+        } else {
+            alert('Error: ' + response.status)
+        }
+    }
+
+    async function loadUserSkills(id) {
+        const response = await API.get(`/users/${id}/habilidades`)
+        setUserSkills(response.data)
     }
 
     function Logout(){
@@ -37,7 +67,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ signed: Boolean(user), Login, Logout, user }}>
+        <AuthContext.Provider value={{ signed: Boolean(user), Login, Logout, Register, user, userSkills, loadUserSkills }}>
             { children }
         </AuthContext.Provider>
     )

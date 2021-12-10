@@ -11,19 +11,22 @@ import {
 } from 'react-native'
 // contexts
 import { useAuth } from '../contexts/auth'
+// import { useUserSkills } from '../contexts/userskills'
 // style imports
 import buttons from '../styles/buttons'
 import containers from '../styles/containers'
 import titles from '../styles/titles'
 
 export default function Login({navigation}) {
-    
+
     const [user, setUser] = useState(null)
     const [password, setPassword] = useState(null)
+    // const { loadUserSkills } = useUserSkills()
     const context = useAuth()
 
     function handleLogin(){
         context.Login(user, password)
+        // loadUserSkills(context.user.id)
     }
     //navegar p/ tela de registro
     const register = () => {

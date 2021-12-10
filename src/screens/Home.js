@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from 'react';
-//axios
-import axios from 'axios'
-//react native
-import { Text, View, TouchableOpacity, FlatList } from 'react-native'
+import { Text, View, TouchableOpacity, FlatList, ScrollView } from 'react-native'
 //contexts
-import { useAuth } from '../../contexts/auth'
-import { useUserSkills } from '../../contexts/userskills'
+import { useAuth } from '../contexts/auth'
+// import { useUserSkills } from '../../contexts/userskills'
 //styles
-import titles from '../../styles/titles'
-import containers from '../../styles/containers'
-import buttons from '../../styles/buttons'
-import cards from '../../styles/cards'
+import titles from '../styles/titles'
+import containers from '../styles/containers'
+import buttons from '../styles/buttons'
+import cards from '../styles/cards'
 
 
 export default function Home({navigation}) {
-    const { user } = useAuth();
-    const { userSkills } = useUserSkills();
-
-    useEffect(() => {
-        console.log(userSkills)
-    }, [])
+    const { user, userSkills } = useAuth();
+    const context = useAuth()
+    // useEffect(() => {
+    //     console.log(userSkills)
+    // }, [])
 
     const search = () => {
         console.log('clicou em search')
@@ -33,10 +29,17 @@ export default function Home({navigation}) {
         console.log('clicou em yourSkills')
         navigation.navigate('YourSkills')
     }
+    const logout = () => {
+        context.Logout()
+        console.log('clicou em logout')
+    }
 
     return (
-        <View style={containers.background}>
-            
+        <ScrollView style={containers.background}>
+            <TouchableOpacity onPress={() => logout(navigation)}> 
+                <Text style={titles.subtext}> logout </Text> 
+            </TouchableOpacity>
+
             <View>
                 <Text style={titles.title}> Hello, { user.nome } </Text>
 
@@ -54,15 +57,13 @@ export default function Home({navigation}) {
                         </View>
                     )}
                 />
-
-                    
-
-                    {/* <TouchableOpacity 
+                    <TouchableOpacity 
                         style={buttons.miniButton}
                         onPress={() => skillForm()}> 
                         <Text style={buttons.miniButtonText}> add skill </Text>
                     </TouchableOpacity>
-                     */}
+                    
+
                 </View>
                 
                 <View style={containers.subtextContainer}>
@@ -100,7 +101,6 @@ export default function Home({navigation}) {
                             </View>
 
                         </View>
-                        
 
                         <View style={cards.cardActivities}>
                             <Text style={titles.subtitleFeed}>ACTIVITIES</Text>
@@ -115,7 +115,7 @@ export default function Home({navigation}) {
                 </View>
             </View>
             
-        </View>
+        </ScrollView>
         
     )
 } 

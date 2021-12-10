@@ -6,9 +6,9 @@ const containers = StyleSheet.create({
     //page containers
     background: {
         backgroundColor: colors.background,
-        height: '100%',
         paddingLeft: '6%',
-        paddingTop: 20
+        height: '100%',
+        paddingTop: 10
     },
     container: {
         flex: 1,
@@ -26,7 +26,8 @@ const containers = StyleSheet.create({
         alignItems: 'center',
     },
     subtitleContainer: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     //user container
     userContainer: {
@@ -43,6 +44,7 @@ const containers = StyleSheet.create({
     feedContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        paddingBottom: 20
     },
     //acitivies container
     feedDivisionContainer: {
